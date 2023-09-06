@@ -3,6 +3,18 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "webpack": true
+  },
+  "projects": {
+    "postgresql": {
+      "type": "library",
+      "root": "libs/postgresql",
+      "entryFile": "index",
+      "sourceRoot": "libs/postgresql/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/postgresql/tsconfig.lib.json"
+      }
+    }
   }
 }
