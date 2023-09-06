@@ -1,8 +1,11 @@
 import { Column, Entity } from "typeorm";
+import { IsEmail } from "class-validator";
+
+import { GlobalEntity } from "@app/postgresql";
 
 @Entity('users')
-export class UserEntity {
-  // add @isEmail
+export class UserEntity extends GlobalEntity {
+  @IsEmail()
   @Column({ length: 50 })
   email: string;
 
