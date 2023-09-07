@@ -2,7 +2,6 @@ import {
   IsDate,
   IsNotEmpty,
   IsNumber, IsOptional,
-  IsPhoneNumber,
   IsString,
   MaxLength,
   MinLength
@@ -22,10 +21,6 @@ export class CreateUserDto {
   @MinLength(6)
   @MaxLength(20)
   password: string;
-
-  @IsPhoneNumber()
-  @MaxLength(20)
-  phoneNumber: string;
 
   @IsString()
   @MaxLength(100)
