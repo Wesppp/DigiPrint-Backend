@@ -15,6 +15,9 @@ export class UserEntity extends GlobalEntity {
   @Column({ length: 16, nullable: true })
   phoneNumber: string;
 
+  @Column({ default: false })
+  isPhoneConfirmed: boolean;
+
   @Column()
   firstname: string;
 
