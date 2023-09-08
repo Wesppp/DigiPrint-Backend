@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { PostgresqlService } from './postgresql.service';
 
 @Module({

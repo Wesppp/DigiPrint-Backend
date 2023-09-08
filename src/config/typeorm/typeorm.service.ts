@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
+
 import { TypeormConfig } from './typeorm-config.type';
+import { UserEntity } from "../../modules/user/infrastructure/entities";
 
 @Injectable()
 export class TypeormService {
@@ -20,7 +22,9 @@ export class TypeormService {
       port,
       type: 'postgres',
       username,
-      entities: [],
+      entities: [
+        UserEntity
+      ],
       synchronize,
       logging,
     };
