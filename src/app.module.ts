@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrintModule } from './modules/print/print.module';
-import { TypeormService } from './config/typeorm/typeorm.service';
+import { TypeormService } from "./config";
 import { configuration } from './config';
 import { AuthModule } from "./modules/auth";
 import { UserModule } from "./modules/user";

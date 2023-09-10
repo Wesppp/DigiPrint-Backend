@@ -3,6 +3,7 @@ import { FindOptionsRelations, FindOptionsWhere, Repository } from "typeorm";
 
 import { UserEntity } from "../entities";
 import { CreateUserDto } from "../../../auth/controllers/dto";
+import { UserDto } from "../../controllers/dto";
 
 export class UserRepository {
   constructor(
@@ -16,6 +17,10 @@ export class UserRepository {
     await this.userRepository.save(newUser);
 
     return newUser;
+  }
+
+  public async updateUser(id: number, user: Partial<UserDto>): Promise<void> {
+    await this.userRepository.update({ id }, user);
   }
 
   public async findUserBy(

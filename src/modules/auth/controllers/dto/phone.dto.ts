@@ -4,5 +4,5 @@ export class PhoneDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(16)
-  phone: string;
+  phoneNumber: string;
 }

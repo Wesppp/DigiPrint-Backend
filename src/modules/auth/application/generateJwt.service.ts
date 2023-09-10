@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from "@nestjs/jwt";
 
-import { IJwtPayload } from "../core/interfaces/jwtPayload.interface";
-import { IGeneratedJwts } from "../core/interfaces/generatedJwts.interface";
-import { TokenGenerationException } from "../core/custom-errors/customErrors.error";
+import { IJwtPayload } from "../core/interfaces";
+import { IGeneratedJwts } from "../core/interfaces";
+import { TokenGenerationException } from "../core/custom-errors";
 
 @Injectable()
 export class GenerateJwtService {
@@ -19,10 +19,10 @@ export class GenerateJwtService {
       });
       const refreshToken = this.jwtService.sign(payload, {
         secret: process.env.JWT_REFRESH_SECRET,
-        expiresIn: '2d',
+        expiresIn: '1y',
       });
 
-      return { accessToken, refreshToken, id, email };
+      return { accessToken, refreshToken };
     } catch (err) {
       throw new TokenGenerationException();
     }
