@@ -6,19 +6,19 @@ import * as process from "process";
 
 import { AuthService } from "./application";
 import { AuthController } from "./controllers";
-import { GenerateJwtService } from "./application";
+import { JwtTokensService } from "./application";
 import { UserModule } from "../user";
 import { AccessTokenStrategy } from "./core/strategies";
 
 @Module({
   providers: [
     AuthService,
-    GenerateJwtService,
+    JwtTokensService,
     AccessTokenStrategy,
   ],
   controllers: [AuthController],
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt-access' }),
+    PassportModule.register({}),
     JwtModule.register({
       secret: process.env.JWT_ACCESS_SECRET
     }),

@@ -1,2 +1,2 @@
 export * from './auth.service';
-export * from './generateJwt.service';
+export * from './jwtTokens.service';

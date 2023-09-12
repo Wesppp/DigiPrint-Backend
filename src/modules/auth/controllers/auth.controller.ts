@@ -1,6 +1,6 @@
 import {
   Body,
-  Controller,
+  Controller, Get,
   HttpException,
   HttpStatus,
   Post,
@@ -12,14 +12,17 @@ import {
 import { Response } from "express";
 
 import { IGeneratedJwts } from "../core/interfaces";
-import { AuthService } from "../application";
+import { AuthService, JwtTokensService } from "../application";
 import { PhoneDto, VerifyOptDto, CreateUserDto, LoginRequestDto } from "./dto";
 import { UserGuard } from "../../../core/guards";
 import { DigiPrintRequest } from "../../../core/types";
+import { RefreshTokenGuard } from "../../../core/guards";
+import { IGeneratedJWTAccess } from "../core/interfaces/generatedJWTAccess.interface";
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {
+  constructor(private readonly authService: AuthService,
+              private readonly jwtTokensService: JwtTokensService) {
   }
 
   @Post('register')
@@ -85,6 +88,12 @@ export class AuthController {
   public async resendOpt(
     @Body() resendOptReq: PhoneDto
   ): Promise<{ msg: string }> {
-    return this.authService.resendOpt(resendOptReq.phoneNumber);
+    return await this.authService.resendOpt(resendOptReq.phoneNumber);
+  }
+
+  @Get('refresh-token')
+  @UseGuards(RefreshTokenGuard)
+  public async refreshToken(@Req() req: DigiPrintRequest): Promise<IGeneratedJWTAccess> {
+    return await this.jwtTokensService.generateAccessTokenByRefresh(req.user);
   }
 }

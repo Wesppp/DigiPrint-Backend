@@ -5,11 +5,11 @@ import { Twilio } from "twilio";
 import * as process from "process";
 
 import { UserService } from "../../user/application";
-import { GenerateJwtService } from "./generateJwt.service";
+import { JwtTokensService } from "./jwtTokens.service";
 import { CreateUserDto, LoginRequestDto } from "../controllers/dto";
 import { IGeneratedJwts } from "../core/interfaces";
 import { IJwtPayload } from "../core/interfaces";
-import { EPhoneVerificationMsges } from "../core/enums/phoneVerificationMsges.enum";
+import { EPhoneVerificationMsges } from "../core/enums";
 import { UserRepository } from "../../user/infrastructure/repositories";
 
 @Injectable()
@@ -17,7 +17,7 @@ export class AuthService {
   private twilioClient: Twilio;
 
   constructor(private readonly userService: UserService,
-              private readonly generateJwtService: GenerateJwtService,
+              private readonly jwtTokensService: JwtTokensService,
               private readonly userRepository: UserRepository) {
     this.twilioClient = new Twilio(
       process.env.TWILIO_ACCOUNT_SID,
@@ -32,7 +32,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    return await this.generateJwtService.generateTokens({
+    return await this.jwtTokensService.generateTokens({
       id: user.id,
       email: user.email,
     });
@@ -51,7 +51,7 @@ export class AuthService {
       throw new HttpException('Passwords don`t match.', HttpStatus.FORBIDDEN,);
     }
 
-    return await this.generateJwtService.generateTokens({
+    return await this.jwtTokensService.generateTokens({
       id: user.id,
       email: user.email,
     });
